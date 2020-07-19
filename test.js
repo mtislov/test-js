@@ -4,6 +4,7 @@ let fac = function f(n) {
 }
 
 
+
 function logResultDecorator (func, funcName) {
 
   return function (...args) {
@@ -44,6 +45,20 @@ function timeDecorator (func, funcName) {
   }
 }
 
+function argumentsCountDecorator(func, requiredNumber) {
+ return function (...args) {
+   let argsCount = args.length;
+
+   if (requiredNumber !== argsCount) {
+     console.warn('Кол во аргументов не совпадает');
+     return;
+   }
+
+   func(args);
+ }
+
+}
+
 
 
 
@@ -51,6 +66,7 @@ fac = logResultDecorator(fac, 'factorial');
 fac = cacheDecorator(fac, 'factorial');
 fac = callCountDecorator(fac, 'factorial');
 fac = timeDecorator(fac, 'factorial');
+fac = argumentsCountDecorator(fac, 1);
 
 
 fac(12);
