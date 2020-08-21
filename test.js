@@ -21,8 +21,8 @@ class runGame {
 
             if (this.teamA.men < 7 || this.teamA.men < 7) return [this.teamA.men, this.teamB.men];
           
-            if (cardColor == 'R' && !team.redCards.has(player)) {
-                team.redCards.set(player, 1);
+            if (cardColor == 'R' && !team.redCards.has(player) && team.yellowCards.get(player) != "excluded") {
+                team.redCards.set(player, "excluded");
                 this.excludeMan(team);
             }
 
@@ -31,7 +31,7 @@ class runGame {
                 if (!team.yellowCards.has(player)) {
                     team.yellowCards.set(player, 1);
 
-                } else if (team.yellowCards.get(player) != "excluded" ) {
+                } else if (team.yellowCards.get(player) != "excluded") {
                     team.yellowCards.set(player, 'excluded')
                     this.excludeMan(team);
                 }
@@ -68,25 +68,30 @@ function menStillStanding(cards) {
   
   
 
-console.log( menStillStanding([ 'B3Y',
-  'A2Y',
-  'B11Y',
-  'A5Y',
+console.log( menStillStanding([ 'A4Y',
+  'B8Y',
   'B9Y',
-  'B6Y',
-  'A11Y',
-  'A10Y',
+  'B10Y',
+  'B3Y',
+  'A5Y',
+  'A2Y',
   'A8Y',
-  'B11R',
-  'B7Y',
-  'B2Y',
-  'A11Y',
-  'A7Y',
+  'A3Y',
+  'B5R',
   'B5Y',
-  'A8Y',
-  'B11Y',
-  'A9Y',
-  'B5Y' ]) ); 
+  'B5Y',
+  'A7Y',
+  'A1Y',
+  'A10R',
+  'A7Y',
+  'A10Y',
+  'A7Y',
+  'A5R',
+  'B9R',
+  'B9R',
+  'B8Y',
+  'A2Y',
+  'B8R' ]) ); 
 
 /// ПЕРЕДЕЛАТЬ СКРИПТ БЕЗ СОРТИРОВКИ
 
