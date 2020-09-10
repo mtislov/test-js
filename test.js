@@ -15,39 +15,79 @@ class Road {
     const lastBlock = this.road.length - 1;
   
     for (let i = lastBlock; i >= 0; i--) {
+    
       let currentBlock = this.road[i];
       let nextBlock = this.road[i + 1]
+      let nextTwoBlock = this.road[i + 2];
 
- 
-     
       if (this.road[lastBlock] == car) {
         this.road[lastBlock] = '.';
         continue;
       }
 
+      if (currentBlock == car) {
 
-      if (currentBlock == car && nextBlock != red && nextBlock != yellow) {
-        this.road[i + 1] = car;
-        this.road[i] = '.';
+        if (nextBlock == '.' || (nextBlock == 'G' && nextTwoBlock == '.')) {
+          this.road[i + 1] = car;
+          this.road[i] = this.checkLights(i);
+        }
+
       }
     }
   }
 
-  initLights() {
+  checkLights ( blockPosition ) {
 
+    let block = '.';
+    this.lights.forEach( light => {
+      if (light.position == blockPosition) {
+        block = light.color;
+      }
+    });
+    return block;
+  }
+
+  simulateLights() {
+    this.lights = this.lights.map( light => {                /// ОТРЕФАКТОРИТЬ!!!!!!!!!!!
+      
+      light.timeLeft--;
+
+      if (light.color == 'G' && light.timeLeft == 0) {
+        light.color = 'Y';
+        light.timeLeft = 1;
+      } 
+
+      else if (light.color == 'Y') {
+        light.color = 'R';
+        light.timeLeft = 5;
+      }
+
+      else if (light.color == 'R' && light.timeLeft == 0) {
+        light.color = 'G';
+        light.timeLeft = 5;
+      }
+
+      if (this.road[light.position] != 'C') {
+        this.road[light.position] = light.color;
+      }
+
+      return light;
+
+    });
+  }
+
+  initLights() {
 
     this.road.forEach(( el, i)  => {  // ищим светофоры
       if (el != '.' && el != 'C') {
+
         this.lights.push({
           position: i,
           color: el,
-          timeLeft: // времени осталось
+          timeLeft: 5,
         });
       }
     });
-
-    console.log(this.lights)
-
 
   }
 
@@ -55,10 +95,15 @@ class Road {
   init() {
 
     this.initLights();
-    for (let i = 0; i <= this.n; i++) {
+    for (let i = 1; i <= this.n; i++) {
+      console.log(this.road.join(''))
+      this.simulateLights();
       this.runCars();
+      
     }
 
+
+    
     return this.road.join('');
   }
 
@@ -71,10 +116,10 @@ class Road {
 function trafficLights(road, n) {
   let game = new Road(road, n);
   return game.init();
+  
 }
 
-
-console.log(trafficLights("..G..", 2));
+trafficLights("CCC.R...G...", 16);
 
 
 
