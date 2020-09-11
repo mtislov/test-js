@@ -38,7 +38,7 @@ class Road {
 
   checkLights ( blockPosition ) {
 
-    let block = '.';
+    let block = '.';                            ////// ПОФИКСИТЬ 
     this.lights.forEach( light => {
       if (light.position == blockPosition) {
         block = light.color;
@@ -53,11 +53,11 @@ class Road {
       light.timeLeft--;
 
       if (light.color == 'G' && light.timeLeft == 0) {
-        light.color = 'Y';
+        light.color = 'O';
         light.timeLeft = 1;
       } 
 
-      else if (light.color == 'Y') {
+      else if (light.color == 'O') {
         light.color = 'R';
         light.timeLeft = 5;
       }
@@ -94,17 +94,18 @@ class Road {
 
   init() {
 
+    let result = [this.road.join('')];
+    
     this.initLights();
     for (let i = 1; i <= this.n; i++) {
-      console.log(this.road.join(''))
+      
       this.simulateLights();
       this.runCars();
+      result.push(this.road.join(''));
       
     }
 
-
-    
-    return this.road.join('');
+    return result;
   }
 
 
@@ -119,8 +120,8 @@ function trafficLights(road, n) {
   
 }
 
-trafficLights("CCC.R...G...", 16);
 
+console.log(trafficLights("C...", 3))
 
 
 
