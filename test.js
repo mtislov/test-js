@@ -20,14 +20,14 @@ class Road {
       let nextBlock = this.road[i + 1]
       let nextTwoBlock = this.road[i + 2];
 
-      if (this.road[lastBlock] == car) {
-        this.road[lastBlock] = '.';
-        continue;
-      }
-
       if (currentBlock == car) {
+        
+        if (i == lastBlock) {
+          this.road[lastBlock] = this.checkLights(i);
+          continue;
+        }
 
-        if (nextBlock == '.' || (nextBlock == 'G' && nextTwoBlock == '.')) {
+        if (nextBlock == '.' || (nextBlock == 'G' && nextTwoBlock == '.') || (nextBlock == 'G' && nextTwoBlock == undefined) ) {
           this.road[i + 1] = car;
           this.road[i] = this.checkLights(i);
         }
@@ -44,6 +44,7 @@ class Road {
         block = light.color;
       }
     });
+
     return block;
   }
 
@@ -121,7 +122,7 @@ function trafficLights(road, n) {
 }
 
 
-console.log(trafficLights("C...", 3))
+console.log(trafficLights("CCC.G", 6))
 
 
 
