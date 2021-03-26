@@ -1,14 +1,14 @@
 .circle {
-transition-property: width, height, margin-left, margin-top;
-transition-duration: 2s;
-transition-timing-function: cubic-bezier(0, 2.18, 0.84, -0.82);
-position: fixed;
-transform: translateX(-50%) translateY(-50%);
-background-color: red;
-border-radius: 50%;
-
-width: 0px;
-height: 0px;
-top: 0;
-left: 0; 
+	transition-property: width, height, margin-left, margin-top;
+	transition-duration: 2s;
+	transition-timing-function: cubic-bezier(0, 2.18, 0.84, -0.82);
+	position: fixed;
+	transform: translateX(-50%) translateY(-50%);
+	background-color: red;
+	border-radius: 50%;
+	width: 0px;
+	height: 0px;
+	top: 0;
+	left: 0; 
 }
+
